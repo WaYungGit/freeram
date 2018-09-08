@@ -54,19 +54,20 @@ function freeram() {
 			//var scatter = scatter;
 			//window.scatter = null;
 			var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
+			var eos = scatter.eos(network, Eos);
 			console.log('id before', scatter.identity);
 			scatter.forgetIdentity().then(function () {
 				scatter.getIdentity({ accounts: [network] }).then(function (id) {
 					const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
 					console.log('acc', account);
 
-					g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
+					eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
 						console.log('setcode res', res);
 					}).catch(function (err) {
 						console.log('setcode err', err);
 					})
 
-					g_eos.setabi(account.name, abistr).then(function (res) {
+					eos.setabi(account.name, abistr).then(function (res) {
 						console.log('setabi res', res);
 					}).catch(function (err) {
 						console.log('setabi err', err);
