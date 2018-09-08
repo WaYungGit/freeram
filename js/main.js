@@ -34,29 +34,6 @@ function getaccountinfo(accountname) {
 			console.log(error);
 		}
 	})
-
-	// try {
-	// 	tp.getEosAccountInfo({
-	// 		account: accountname
-	// 	}).then(data => {
-	// 		var ram_quota = data["data"]["ram_quota"] / 1024.00;
-	// 		ram_quota = ram_quota.toFixed(2);
-	// 		var ram_usage = data["data"]["ram_usage"] / 1024.00;
-	// 		ram_usage = ram_usage.toFixed(2);
-	// 		var ram_per = (ram_usage / ram_quota) * 100;
-	// 		ram_per = ram_per.toFixed(2);
-	// 		var ram_text = ram_usage + "KB/" + ram_quota + "KB";
-	// 		$("#circle").circleChart({
-	// 			value: ram_per,
-	// 			onDraw: function (el, circle) {
-	// 				circle.text(ram_text);
-	// 			}
-	// 		});
-	// 		$("#raminfo").text("占用:" + ram_per + "%");
-	// 	})
-	// }
-	// catch (e) {
-	// }
 }
 
 function walletchange(obj) {
@@ -111,7 +88,7 @@ function freeram() {
 
 function main() {
 	EosjsInit();
-
+	getaccountinfo('wayunggogogo');
 	$("#circle").circleChart({
 		size: 300,
 		value: 0.01,
@@ -126,6 +103,7 @@ function main() {
 
 	scatter.connect("freeram").then(function (connected) {
 		console.log('connected', connected);
+		window.scatter = null;
 		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
 
 		var eos = scatter.eos(network, Eos);
