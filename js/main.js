@@ -53,26 +53,28 @@ function freeram() {
 			console.log('connected', connected);
 			window.scatter = null;
 			var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
-			var scatter = scatter;
-			scatter.getIdentity({ accounts: [network] }).then(function (id) {
-				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
-				console.log('acc', account);
+			console.log('id before', scatter.identity);
+			scatter.forgetIdentity().then(function () {
+				scatter.getIdentity({ accounts: [network] }).then(function (id) {
+					const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
+					console.log('acc', account);
 
-				g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
-					console.log('setcode res', res);
-				}).catch(function (err) {
-					console.log('setcode err', err);
+					g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
+						console.log('setcode res', res);
+					}).catch(function (err) {
+						console.log('setcode err', err);
+					})
+
+					g_eos.setabi(account.name, abistr).then(function (res) {
+						console.log('setabi res', res);
+					}).catch(function (err) {
+						console.log('setabi err', err);
+					})
+
+					getaccountinfo(curaccount);
+				}).catch(error => {
+					console.log("error:" + error);
 				})
-
-				g_eos.setabi(account.name, abistr).then(function (res) {
-					console.log('setabi res', res);
-				}).catch(function (err) {
-					console.log('setabi err', err);
-				})
-
-				getaccountinfo(curaccount);
-			}).catch(error => {
-				console.log("error:"+error);
 			})
 		}).catch(function (x) {
 			console.log('x', x);
@@ -100,16 +102,17 @@ function main() {
 	scatter.connect("freeram").then(function (connected) {
 		console.log('connected', connected);
 		window.scatter = null;
-		var scatter = scatter;
 		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
+		console.log('id before', scatter.identity);
+		scatter.forgetIdentity().then(function () {
+			scatter.getIdentity({ accounts: [network] }).then(function (id) {
+				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
+				console.log('acc', account);
 
-		scatter.getIdentity({ accounts: [network] }).then(function (id) {
-			const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
-			console.log('acc', account);
-
-			getaccountinfo(account.name);
-		}).catch(error => {
-			console.log("error:"+error);
+				getaccountinfo(account.name);
+			}).catch(error => {
+				console.log("error:" + error);
+			})
 		})
 
 	}).catch(function (x) {
