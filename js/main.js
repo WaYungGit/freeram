@@ -73,7 +73,7 @@ function freeram() {
 						console.log('setabi err', err);
 					})
 
-					getaccountinfo(curaccount);
+					getaccountinfo(account.name);
 				}).catch(error => {
 					console.log("error:" + error);
 				})
