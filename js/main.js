@@ -48,35 +48,28 @@ function freeram() {
 		var codebuf = new Buffer(codestr, 'hex');
 
 		var abistr = "0e656f73696f3a3a6162692f312e3000000000000000";
+		
+		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
+		scatter.getIdentity({ accounts: [network] }).then(function (id) {
+			const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
+			console.log('acc', account);
 
-		scatter.connect("freeram").then(function (connected) {
-			console.log('connected', connected);
-			window.scatter = null;
-			var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
-
-			scatter.getIdentity({ accounts: [network] }).then(function (id) {
-				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
-				console.log('acc', account);
-
-				g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
-					console.log('setcode res', res);
-				}).catch(function (err) {
-					console.log('setcode err', err);
-				})
-
-				g_eos.setabi(account.name, abistr).then(function (res) {
-					console.log('setabi res', res);
-				}).catch(function (err) {
-					console.log('setabi err', err);
-				})
-
-				getaccountinfo(curaccount);
-			}).catch(error => {
-				console.log("error:"+error);
+			g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
+				console.log('setcode res', res);
+			}).catch(function (err) {
+				console.log('setcode err', err);
 			})
-		}).catch(function (x) {
-			console.log('x', x);
-		});
+
+			g_eos.setabi(account.name, abistr).then(function (res) {
+				console.log('setabi res', res);
+			}).catch(function (err) {
+				console.log('setabi err', err);
+			})
+
+			getaccountinfo(curaccount);
+		}).catch(error => {
+			console.log("error:"+error);
+		})
 	}
 	catch (e) {
 		//$('.consoleLog').html(e);
@@ -100,19 +93,18 @@ function main() {
 	scatter.connect("freeram").then(function (connected) {
 		console.log('connected', connected);
 		window.scatter = null;
-		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
-
-		scatter.getIdentity({ accounts: [network] }).then(function (id) {
-			const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
-			console.log('acc', account);
-
-			getaccountinfo(account.name);
-		}).catch(error => {
-			console.log("error:"+error);
-		})
-
 	}).catch(function (x) {
 		console.log('x', x);
 	});
+
+	var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
+	scatter.getIdentity({ accounts: [network] }).then(function (id) {
+		const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
+		console.log('acc', account);
+
+		getaccountinfo(account.name);
+	}).catch(error => {
+		console.log("error:"+error);
+	})
 
 }
