@@ -51,7 +51,7 @@ function freeram() {
 
 		scatter.connect("freeram").then(function (connected) {
 			console.log('connected', connected);
-			var scatter = scatter;
+			//var scatter = scatter;
 			//window.scatter = null;
 			var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
 			console.log('id before', scatter.identity);
@@ -102,7 +102,7 @@ function main() {
 
 	scatter.connect("freeram").then(function (connected) {
 		console.log('connected', connected);
-		var scatter = scatter;
+		//var scatter = scatter;
 		//window.scatter = null;
 		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
 		console.log('id before', scatter.identity);
