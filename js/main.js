@@ -14,9 +14,9 @@ function getaccountinfo(accountname) {
 
 	g_eos.getAccount(accountname, function (error, data) {
 		if (error == null) {
-			var ram_quota = data["data"]["ram_quota"] / 1024.00;
+			var ram_quota = data["ram_quota"] / 1024.00;
 			ram_quota = ram_quota.toFixed(2);
-			var ram_usage = data["data"]["ram_usage"] / 1024.00;
+			var ram_usage = data["ram_usage"] / 1024.00;
 			ram_usage = ram_usage.toFixed(2);
 			var ram_per = (ram_usage / ram_quota) * 100;
 			ram_per = ram_per.toFixed(2);
@@ -88,7 +88,6 @@ function freeram() {
 
 function main() {
 	EosjsInit();
-	getaccountinfo('wayunggogogo');
 	$("#circle").circleChart({
 		size: 300,
 		value: 0.01,
