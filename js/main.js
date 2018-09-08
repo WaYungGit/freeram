@@ -51,9 +51,8 @@ function freeram() {
 
 		scatter.connect("freeram").then(function (connected) {
 			console.log('connected', connected);
+			window.scatter = null;
 			var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
-
-			var eos = scatter.eos(network, Eos);
 
 			console.log('id before', scatter.identity);
 			scatter.forgetIdentity().then(function () {
@@ -61,13 +60,13 @@ function freeram() {
 					const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
 					console.log('acc', account);
 
-					eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
+					g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
 						console.log('setcode res', res);
 					}).catch(function (err) {
 						console.log('setcode err', err);
 					})
 
-					eos.setabi(account.name, abistr).then(function (res) {
+					g_eos.setabi(account.name, abistr).then(function (res) {
 						console.log('setabi res', res);
 					}).catch(function (err) {
 						console.log('setabi err', err);
@@ -104,8 +103,6 @@ function main() {
 		console.log('connected', connected);
 		window.scatter = null;
 		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
-
-		var eos = scatter.eos(network, Eos);
 
 		scatter.forgetIdentity().then(function () {
 			scatter.getIdentity({ accounts: [network] }).then(function (id) {
