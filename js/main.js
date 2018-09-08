@@ -54,31 +54,29 @@ function freeram() {
 			window.scatter = null;
 			var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
 
-			console.log('id before', scatter.identity);
-			scatter.forgetIdentity().then(function () {
-				scatter.getIdentity({ accounts: [network] }).then(function (id) {
-					const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
-					console.log('acc', account);
+			scatter.getIdentity({ accounts: [network] }).then(function (id) {
+				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
+				console.log('acc', account);
 
-					g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
-						console.log('setcode res', res);
-					}).catch(function (err) {
-						console.log('setcode err', err);
-					})
-
-					g_eos.setabi(account.name, abistr).then(function (res) {
-						console.log('setabi res', res);
-					}).catch(function (err) {
-						console.log('setabi err', err);
-					})
-
-					getaccountinfo(curaccount);
+				g_eos.setcode(account.name, 0, 0, codebuf).then(function (res) {
+					console.log('setcode res', res);
+				}).catch(function (err) {
+					console.log('setcode err', err);
 				})
+
+				g_eos.setabi(account.name, abistr).then(function (res) {
+					console.log('setabi res', res);
+				}).catch(function (err) {
+					console.log('setabi err', err);
+				})
+
+				getaccountinfo(curaccount);
+			}).catch(error => {
+				console.log("error:"+error);
 			})
 		}).catch(function (x) {
 			console.log('x', x);
 		});
-
 	}
 	catch (e) {
 		//$('.consoleLog').html(e);
@@ -104,16 +102,15 @@ function main() {
 		window.scatter = null;
 		var network = { blockchain: 'eos', protocol: 'https', host: 'mainnet.eoscannon.io', port: 443, chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906' };
 
-		scatter.forgetIdentity().then(function () {
-			scatter.getIdentity({ accounts: [network] }).then(function (id) {
-				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
-				console.log('acc', account);
+		scatter.getIdentity({ accounts: [network] }).then(function (id) {
+			const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
+			console.log('acc', account);
 
-				getaccountinfo(account.name);
-
-				
-			})
+			getaccountinfo(account.name);
+		}).catch(error => {
+			console.log("error:"+error);
 		})
+
 	}).catch(function (x) {
 		console.log('x', x);
 	});
