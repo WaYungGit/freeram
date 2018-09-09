@@ -145,7 +145,7 @@ function main() {
 			scatter.getIdentity({ accounts: [network] }).then(function (id) {
 				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
 				console.log('acc', account);
-
+				$("#cleanrambtn").val(account.name);
 				getaccountinfo(account.name);
 			}).catch(error => {
 				console.log("error:" + error);
