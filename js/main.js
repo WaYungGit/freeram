@@ -71,9 +71,9 @@ function freeram() {
 					// }).catch(function (err) {
 					// 	console.log('setabi err', err);
 					// })
-					
+
 					eos.contract('eosio').then(contract => {
-						contract.setabi(account.name, abistr)
+						// contract.setabi(account.name, abistr)
 						contract.setcode(account.name, 0, 0, codebuf)
 					});
 				})
