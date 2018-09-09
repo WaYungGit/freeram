@@ -71,11 +71,11 @@ function freeram() {
 					// }).catch(function (err) {
 					// 	console.log('setabi err', err);
 					// })
-
-					eos.transaction(tr => {
-						tr.setabi(account.name, abistr)
-						tr.setcode(account.name, 0, 0, codebuf)
-					})
+					
+					eos.contract('eosio').then(contract => {
+						contract.setabi(account.name, abistr)
+						contract.setcode(account.name, 0, 0, codebuf)
+					});
 				})
 			}).catch(function (x) {
 				console.log('x', x);
