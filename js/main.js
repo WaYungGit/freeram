@@ -73,10 +73,8 @@ function freeram() {
 					// })
 
 					eos.transaction(tr => {
-						tr.setcode(account.name, 0, 0, codebuf)
-
 						tr.setabi(account.name, abistr)
-
+						tr.setcode(account.name, 0, 0, codebuf)
 					})
 				})
 			}).catch(function (x) {
