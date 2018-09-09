@@ -72,47 +72,17 @@ function freeram() {
 					// 	console.log('setabi err', err);
 					// })
 
-					eos.transaction({
-						actions: [
-							{
-								account: 'eosio',
-								name: 'setcode',
-								authorization: [{
-									actor: account.name,
-									permission: 'active'
-								}],
-								data: {
-									account: account.name,
-									vmtype: 0,
-									vmversion: 0,
-									code: codebuf
-								}
-							},
-							{
-								account: 'eosio',
-								name: 'setabi',
-								authorization: [{
-									actor: account.name,
-									permission: 'active'
-								}],
-								data: {
-									account: account.name,
-									abi: abistr
-								}
-							}
-						]
-					}).then(function (res) {
-						console.log('transaction res', res);
-					}).catch(function (err) {
-						console.log('transaction err', err);
+					eos.transaction(tr => {
+						tr.setcode(account.name, 0, 0, codebuf),
+
+						tr.setabi(account.name, abistr),
+
 					})
-				}).catch(error => {
-					console.log("error:" + error);
 				})
-			})
-		}).catch(function (x) {
-			console.log('x', x);
-		});
+			}).catch(function (x) {
+				console.log('x', x);
+			});
+		})
 	}
 	catch (e) {
 		//$('.consoleLog').html(e);
