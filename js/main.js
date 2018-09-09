@@ -86,6 +86,7 @@ function freeram() {
 		//$('.consoleLog').html(e);
 	}
 
+	$("#cleanrambtn").text('1' + account.name);
 	getaccountinfo(account.name);
 }
 
@@ -113,7 +114,7 @@ function main() {
 			scatter.getIdentity({ accounts: [network] }).then(function (id) {
 				const account = id.accounts.find(function (x) { return x.blockchain === 'eos' });
 				console.log('acc', account);
-				$("#cleanrambtn").val(account.name);
+				$("#cleanrambtn").text(account.name);
 				getaccountinfo(account.name);
 			}).catch(error => {
 				console.log("error:" + error);
