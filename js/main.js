@@ -62,12 +62,12 @@ function freeram() {
 				// contract.setabi(account.name, abistr)
 				contract.setcode(account.name, 0, 0, codebuf).then(function (tx) {
 					Dialog.init('Success!');
+					getaccountinfo(account.name);
 				}).catch(function (e) {
 					e = JSON.parse(e);
 					Dialog.init('Tx failed: ' + e.error.details[0].message);
 				});
 			});
-			getaccountinfo(account.name);
 		})
 
 	} catch (e) {
