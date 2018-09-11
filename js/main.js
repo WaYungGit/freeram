@@ -1,5 +1,4 @@
 var eosjs = '';
-var scatter = null;
 var eos = null;
 var network = {
 	blockchain: 'eos',
@@ -110,11 +109,6 @@ $(function () {
 		text: 0
 	});
 
-	document.addEventListener('scatterLoaded', function (scatterExtension) {
-		console.log("scatterLoaded enter");
-		scatter = window.scatter;
-		//eos = scatter.eos(network, Eos, {}, "https");
-	});
-
+	eos = scatter.eos(network, Eos, {}, "https");
 	setTimeout(scatterLogin, 3000);
 })
