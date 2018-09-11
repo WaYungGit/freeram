@@ -1,5 +1,6 @@
 var eosjs = '';
 var eos = null;
+var scatter = null;
 var network = {
 	blockchain: 'eos',
 	protocol: 'https',
@@ -60,7 +61,7 @@ function freeram() {
 			eos.contract('eosio', options).then(contract => {
 				// contract.setabi(account.name, abistr)
 				contract.setcode(account.name, 0, 0, codebuf).then(function (tx) {
-				Dialog.init('Success!');
+					Dialog.init('Success!');
 				}).catch(function (e) {
 					e = JSON.parse(e);
 					Dialog.init('Tx failed: ' + e.error.details[0].message);
@@ -76,7 +77,7 @@ function freeram() {
 
 function doLoginSuccess(identity) {
 	var account = identity.accounts[0];
-	Dialog.init(account.name+" 已登录");
+	Dialog.init(account.name + " 已登录");
 	getaccountinfo(account.name);
 	return account;
 }
@@ -108,7 +109,10 @@ $(function () {
 		relativeTextSize: 0.06,
 		text: 0
 	});
-
-	eos = scatter.eos(network, Eos, {}, "https");
+	document.addEventListener('scatterLoaded', function (scatterExtension) {
+		console.log("scatterLoaded enter");
+		scatter = window.scatter;
+		eos = scatter.eos(network, Eos, {}, "https");
+	});
 	setTimeout(scatterLogin, 3000);
 })
