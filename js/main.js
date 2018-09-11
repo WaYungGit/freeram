@@ -101,7 +101,7 @@ function scatterLogin() {
 }
 
 $(function () {
-	//EosjsInit();
+	EosjsInit();
 	$("#circle").circleChart({
 		size: 300,
 		value: 0.01,
