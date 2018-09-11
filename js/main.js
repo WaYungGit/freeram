@@ -86,6 +86,7 @@ function scatterLogin() {
 	}).then(function (identity) {
 		var account = identity.accounts[0];
 		Dialog.init(account.name + " 已登录");
+		getaccountinfo(account.name);
 		$("#cleanrambtn").click(function () {
 			freeram();
 		})
