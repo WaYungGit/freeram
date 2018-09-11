@@ -77,7 +77,7 @@ function freeram() {
 
 function doLoginSuccess(identity) {
 	var account = identity.accounts[0];
-	console.log(account);
+	Dialog.init(account.name+" 已登录");
 	getaccountinfo(account.name);
 	return account;
 }
