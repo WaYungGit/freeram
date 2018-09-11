@@ -67,19 +67,12 @@ function freeram() {
 					Dialog.init('Tx failed: ' + e.error.details[0].message);
 				});
 			});
-			doLoginSuccess(identity);
+			getaccountinfo(account.name);
 		})
 
 	} catch (e) {
 		Dialog.init(e);
 	}
-}
-
-function doLoginSuccess(identity) {
-	var account = identity.accounts[0];
-	Dialog.init(account.name + " 已登录");
-	getaccountinfo(account.name);
-	return account;
 }
 
 function scatterLogin() {
@@ -91,7 +84,8 @@ function scatterLogin() {
 	scatter.getIdentity({
 		accounts: [network]
 	}).then(function (identity) {
-		doLoginSuccess(identity);
+		var account = identity.accounts[0];
+		Dialog.init(account.name + " 已登录");
 		$("#cleanrambtn").click(function () {
 			freeram();
 		})
